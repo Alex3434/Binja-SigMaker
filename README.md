@@ -12,7 +12,8 @@ Generate Signatures to use for pattern scanning in other applications.
 
 ## Usage:
 
-<img src="https://i.gyazo.com/d565acf900a9261f47880dcf67077efd.gif"/><img src="https://i.gyazo.com/c193a1cf9bfc89b09306b6ee5baee2be.gif"/>
+<img src="https://i.gyazo.com/bdd6d7a421d14efc6e6128dc5b797fb4.gif"/>
+<img src="https://i.gyazo.com/daa55c4362e95c0e5994df9fc34ed6c6.gif"/>
 
 
 ## Minimum Version
