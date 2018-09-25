@@ -5,10 +5,10 @@ SigMaker plugin for Binary Ninja
 
 ## Description:
 
-Generate Signatures to use for pattern scanning in other applications
+Generate Signatures to use for pattern scanning in other applications.
 
-You can create a signature at any point inside a function.  
-If there is no unique signature at that possition, the plugin will create a signature for the beginning of the function.
+- You can create a signature at any point inside a function.  
+- If there is no unique signature at that possition, the plugin will create a signature for the beginning of the function.
 
 ## Usage:
 
