@@ -1,4 +1,4 @@
-# Xref Call Finder (v1.0 alpha)
+# SigMaker (v1.0 alpha)
 Author: **Alex3434**
 
 _Generate Signatures_
