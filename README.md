@@ -12,7 +12,7 @@ Generate Signatures to use for pattern scanning in other applications.
 
 ## Usage:
 
-<img src="https://i.gyazo.com/21adb3afcf0b8ab09a67e6a7eb6bcb9d.gif"/>
+<img src="https://i.gyazo.com/d565acf900a9261f47880dcf67077efd.gif"/>
 
 <img src="https://i.gyazo.com/c193a1cf9bfc89b09306b6ee5baee2be.gif"/>
 
