@@ -154,7 +154,7 @@ def SigMakerCreate(bv, addr):
 
 	str_sig = convert_to_string(sigList)
 	print 'Created Signature:\t' + str_sig
-	show_message_box("Search result",'Address:\t' + format(get_address_from_sig(bv, sigList) - len(sigList), '16x') + '\n' + 'Signature:\t' + str_sig + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+	show_message_box("Created Signature",'Address:\t' + format(get_address_from_sig(bv, sigList) - len(sigList), '16x') + '\n' + 'Signature:\t' + str_sig + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
 
 
 
