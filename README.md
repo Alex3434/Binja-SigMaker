@@ -1,7 +1,7 @@
 # SigMaker (v1.0 alpha)
 Author: **Alex3434**
 
-_Generate Signatures_
+SigMaker plugin for Binary Ninja
 
 ## Description:
 
