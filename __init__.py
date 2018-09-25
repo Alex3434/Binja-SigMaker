@@ -31,6 +31,9 @@ def get_amount_of_hits(bv, sigList):
 	if len(sigList) == 0:
 		return result
 
+	if len(sigList) < 5:
+		return -1
+
 	for search_func in bv.functions:
 		br.seek(search_func.start)
 
