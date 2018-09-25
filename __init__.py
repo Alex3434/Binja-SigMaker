@@ -74,7 +74,7 @@ def SigMakerFind(bv):
 
 	return
 
-def get_sig_from_address(bv, addr):
+def get_sig_from_address(bv, addr, first_try = True):
 	
 	if addr == None:
 		return
@@ -85,15 +85,24 @@ def get_sig_from_address(bv, addr):
 
 	br.seek(addr)
 
+	org_func = bv.get_functions_containing(br.offset)
+
+	if org_func == None:
+		return sigList
+
 	while get_amount_of_hits(bv,sigList) != 1:
 		
-		if len(sigList) > 128:
-			return []
+		if len(sigList) > 24 and first_try:
+			return get_sig_from_address(bv, org_func[0].start, False)
+		elif not first_try:
+			return sigList
 		
 		containing = bv.get_functions_containing(br.offset)
 
-		if containing == None:
-			return []
+		if (containing == None or containing[0] != org_func[0]) and first_try:
+			return get_sig_from_address(bv, org_func[0].start, False)
+		elif not first_try:
+			return sigList
 
 		target_func = containing[0]
 		constants = target_func.get_constants_referenced_by(br.offset)
@@ -139,11 +148,13 @@ def convert_to_string(sigList):
 
 def SigMakerCreate(bv, addr):
 
+	show_message_box("Create Signature","It can take a while for the plugin to finish.\nPress 'OK' if you want to start.", MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+
 	sigList = get_sig_from_address(bv, addr)
 
 	str_sig = convert_to_string(sigList)
 	print 'Created Signature:\t' + str_sig
-	show_message_box("Search result",'Address:    ' + format(addr, '16x') + '\n' + 'Signature:\t' + str_sig + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+	show_message_box("Search result",'Address:\t' + format(get_address_from_sig(bv, sigList) - len(sigList), '16x') + '\n' + 'Signature:\t' + str_sig + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
 
 
 
