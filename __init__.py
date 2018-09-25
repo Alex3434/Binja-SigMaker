@@ -66,8 +66,8 @@ def SigMakerFind(bv):
 
 	if result != 0:
 		new_result = result - len(sigList)
-		print 'Found:\t' + format(new_result, '16x') + '\nInside:\t' + format(bv.get_functions_containing(new_result)[0].start, '16x') + '\nSignature:\t' + user_input + '\nHits:\t' + format(get_amount_of_hits(bv,sigList), '10x')
-		show_message_box("Search result",'Address:\t' + format(new_result, '16x') + '\n' + 'Function:\t' + format(bv.get_functions_containing(new_result)[0].start, '16x') + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+		print 'Found:\t' + convert_to_hex_string(new_result) + '\nInside:\t' + convert_to_hex_string(bv.get_functions_containing(new_result)[0].start) + '\nSignature:\t' + user_input + '\nHits:\t' + convert_to_hex_string(get_amount_of_hits(bv,sigList))
+		show_message_box("Search result",'Address:\t' + convert_to_hex_string(new_result) + '\n' + 'Function:\t' + convert_to_hex_string(bv.get_functions_containing(new_result)[0].start) + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
 	else:
 		print 'Found:\t' + 'None' + '\nInside:\t' + 'None' + '\nSignature:\t' + user_input
 		show_message_box("Search result",'Address:\t' + 'NONE' + '\n' + 'Function:\t' + 'NONE' + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
@@ -154,7 +154,7 @@ def SigMakerCreate(bv, addr):
 
 	str_sig = convert_to_string(sigList)
 	print 'Created Signature:\t' + str_sig
-	show_message_box("Created Signature",'Address:\t' + format(get_address_from_sig(bv, sigList) - len(sigList), '16x') + '\n' + 'Signature:\t' + str_sig + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+	show_message_box("Created Signature",'Address:\t' + convert_to_hex_string(get_address_from_sig(bv, sigList) - len(sigList)) + '\n' + 'Signature:\t' + str_sig + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
 
 
 
