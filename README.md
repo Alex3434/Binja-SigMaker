@@ -7,6 +7,7 @@ SigMaker plugin for Binary Ninja
 
 Generate Signatures to use for pattern scanning in other applications.
 
+- The signature has the same form like the sequence of bytes in IDA (eg. 89 45 FC FF 15 ? ? ? ?)
 - You can create a signature at any point inside a function.  
 - If there is no unique signature at that possition, the plugin will create a signature for the beginning of the function.
 
