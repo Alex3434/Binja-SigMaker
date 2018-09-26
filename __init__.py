@@ -194,34 +194,42 @@ def get_addr_of_hits(bv, sigList):
 	return result
 
 def SigMakerFind(bv):
-	user_input = get_text_line_input("Find Signature...\t\t\t\t\t", "SigMaker")
+	f = Finder(bv)
+	f.start()
 
-	if user_input == None:
-		return
+class Finder(BackgroundTaskThread):
+	def __init__(self, bv):
+		BackgroundTaskThread.__init__(self, "Finding Signature...", True)
+		self.bv = bv
 
-	sig = user_input.split(" ")
+	def run(self):
+		user_input = get_text_line_input("Find Signature\t\t\t\t\t", "SigMaker")
 
-	sigList = []
+		if user_input == None:
+			return
 
-	for value in sig:
-		if value == '?':
-			sigList.append(value)
-		elif value != '?' and value != '':
-			sigList.append(int(value,16))
+		sig = user_input.split(" ")
 
-	result = get_address_from_sig(bv, sigList)
+		sigList = []
 
-	if result != 0:
-		new_result = result
-		print 'Found:\t' + convert_to_hex_string(new_result) + '\nInside:\t' + convert_to_hex_string(bv.get_functions_containing(new_result)[0].start) + '\nSignature:\t' + user_input #+ '\nHits:\t' + convert_to_hex_string(get_amount_of_hits(bv,sigList))
-		res = show_message_box("Search result",'Address:\t' + convert_to_hex_string(new_result) + '\n' + 'Function:\t' + convert_to_hex_string(bv.get_functions_containing(new_result)[0].start) + '\nWant to jump to the address?', MessageBoxButtonSet.YesNoButtonSet, MessageBoxIcon.InformationIcon)
-		if res == MessageBoxButtonResult.YesButton:
-			bv.file.navigate(bv.file.view, new_result)
-	else:
-		print 'Found:\t' + 'None' + '\nInside:\t' + 'None' + '\nSignature:\t' + user_input
-		show_message_box("Search result",'Address:\t' + 'NONE' + '\n' + 'Function:\t' + 'NONE' + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+		for value in sig:
+			if value == '?':
+				sigList.append(value)
+			elif value != '?' and value != '':
+				sigList.append(int(value,16))
 
-	return
+		result = get_address_from_sig(self.bv, sigList)
+
+		if result != 0:
+			new_result = result
+			print 'Found:\t' + convert_to_hex_string(new_result) + '\nInside:\t' + convert_to_hex_string(self.bv.get_functions_containing(new_result)[0].start) + '\nSignature:\t' + user_input #+ '\nHits:\t' + convert_to_hex_string(get_amount_of_hits(bv,sigList))
+			res = show_message_box("Search result",'Address:\t' + convert_to_hex_string(new_result) + '\n' + 'Function:\t' + convert_to_hex_string(self.bv.get_functions_containing(new_result)[0].start) + '\nWant to jump to the address?', MessageBoxButtonSet.YesNoButtonSet, MessageBoxIcon.InformationIcon)
+			if res == MessageBoxButtonResult.YesButton:
+				self.bv.file.navigate(self.bv.file.view, new_result)
+		else:
+			print 'Found:\t' + 'None' + '\nInside:\t' + 'None' + '\nSignature:\t' + user_input
+			show_message_box("Search result",'Address:\t' + 'NONE' + '\n' + 'Function:\t' + 'NONE' + '\n', MessageBoxButtonSet.OKButtonSet, MessageBoxIcon.InformationIcon)
+
 
 def get_instruction_sig(bv, func, addr):
 	const = func.get_constants_referenced_by(addr)
@@ -341,8 +349,6 @@ def SigMakerCreate(bv, addr):
 	c = Creator(addr, bv)
 	c.start()
 
-
-	
 
 class Creator(BackgroundTaskThread):
 	def __init__(self, addr, bv):
