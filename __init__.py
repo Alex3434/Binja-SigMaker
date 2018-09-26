@@ -63,9 +63,6 @@ def get_amount_of_hits(bv, sigList):
 	if len(sigList) == 0:
 		return result
 
-	#if len(sigList) < 3:
-	#	return -1
-
 	sigLen = len(sigList) - 1
 
 	for search_func in bv.functions:
@@ -90,50 +87,6 @@ def get_amount_of_hits(bv, sigList):
 
 	return result
 
-def map_check_functions_for_hits(func_sig_tuple):
-	
-	if func_sig_tuple == None:
-		return []
-	
-	search_func = func_sig_tuple[0]
-	sigList = func_sig_tuple[1]
-	#br = func_sig_tuple[2]
-	bv = func_sig_tuple[2]
-
-	br = BinaryReader(bv)
-
-	br.seek(search_func.start)
-	sigLen = len(sigList) - 1
-
-	result = []
-
-	if sigList == None or bv.get_functions_containing(br.offset + sigLen) == None:
-		return result
-
-	while bv.get_functions_containing(br.offset + sigLen) != None and search_func in bv.get_functions_containing(br.offset + sigLen):
-		found = True
-		counter = 0
-		for entry in sigList:
-			byte = br.read8()
-			counter += 1
-			if entry != byte and entry != '?':
-				found = False
-				break
-
-		br.offset -= counter
-		
-		if found:
-			result.append(br.offset)
-
-		br.offset += bv.get_instruction_length(br.offset)
-
-		if bv.get_instruction_length(br.offset) == 0:
-			break
-
-
-	return result
-
-
 def get_addr_of_hits(bv, sigList):
 	br = BinaryReader(bv)
 
@@ -143,26 +96,6 @@ def get_addr_of_hits(bv, sigList):
 		return result
 
 	sigLen = len(sigList) - 1
-
-	#map_func_sig_List = []
-
-	#for func in bv.functions:
-	#	map_func_sig_List.append((func, sigList, bv))
-
-	
-	
-	#Process(target=map_check_functions_for_hits, args=(map_func_sig_List,))
-
-	#p = Pool(processes=8) 
-	#map_result = map(map_check_functions_for_hits, map_func_sig_List)
-
-	#for x in map_result:
-	#	if len(x) == 0:
-	#		continue
-	#	for addr in x:
-	#		result.append(addr)
-
-
 
 	for search_func in bv.functions:
 		br.seek(search_func.start)
@@ -186,10 +119,6 @@ def get_addr_of_hits(bv, sigList):
 	
 			if bv.get_instruction_length(br.offset) == 0:
 				break
-
-			
-
-			
 
 	return result
 
