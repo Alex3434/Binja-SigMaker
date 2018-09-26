@@ -1,4 +1,4 @@
-# SigMaker (v1.0 alpha)
+# SigMaker (v1.1 alpha)
 Author: **Alex3434**
 
 SigMaker plugin for Binary Ninja
