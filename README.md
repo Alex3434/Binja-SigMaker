@@ -1,3 +1,7 @@
+# OUTDATED
+
+USE: https://github.com/apekros/binja_sigmaker
+
 # SigMaker (v1.1 alpha)
 Author: **Alex3434**
 
